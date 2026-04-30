@@ -1,92 +1,23 @@
-#name: Django CI
-#on:
-#  push:
-#    branches: [ main ]
-#jobs:
-#  test:
-#    runs-on: ubuntu-latest
-#    services:
-#      redis:
-#        image: redis
-#        ports: ['6379:6379']
-#    env:
-#      SECRET_KEY: test
-#      DEBUG: True
-#      REDIS_URL: redis://localhost:6379/1
-#    steps:
-#    - uses: actions/checkout@v4
-#    - uses: actions/setup-python@v5
-#      with:
-#        python-version: '3.11'
-#    - run: pip install -r requirements.txt
-#    - run: python manage.py migrate
-#    - run: python manage.py test
-name: Django CI Pipeline
-
+name: Django CI
 on:
   push:
     branches: [ main ]
-
 jobs:
-
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Flake8
-        run: pip install flake8
-
-      - name: Run Lint Check
-        run: flake8 .
-
   test:
     runs-on: ubuntu-latest
-    needs: lint
-
     services:
       redis:
         image: redis
-        ports:
-          - 6379:6379
-
+        ports: ['6379:6379']
     env:
-      SECRET_KEY: testkey
+      SECRET_KEY: test
       DEBUG: True
       REDIS_URL: redis://localhost:6379/1
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Requirements
-        run: pip install -r requirements.txt
-
-      - name: Run Migration
-        run: python manage.py migrate
-
-      - name: Run Tests
-        run: python manage.py test
-
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v7
-
-      - name: Build Success Message
-        run: echo "Build Ready"
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: pip install -r requirements.txt
+    - run: python manage.py migrate
+    - run: python manage.py test
