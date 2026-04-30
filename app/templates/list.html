@@ -1,0 +1,14 @@
+<!doctype html>
+<html><body>
+<h2>Products</h2>
+<form method="post" action="/create/">{% csrf_token %}
+<input name="name" placeholder="name">
+<input name="price" placeholder="price">
+<button type="submit">Add</button>
+</form>
+<ul>
+{% for p in products %}
+<li>{{p.name}} - {{p.price}}</li>
+{% endfor %}
+</ul>
+</body></html>

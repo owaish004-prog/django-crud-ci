@@ -1,0 +1,6 @@
+Django>=5.0
+python-dotenv
+redis
+django-redis
+pytest
+pytest-django
