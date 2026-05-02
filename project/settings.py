@@ -31,7 +31,7 @@ TEMPLATES=[{
 ]}
 }]
 WSGI_APPLICATION='project.wsgi.application'
-DATABASES={'default':{'ENGINE':'django.db.backends.sqlite3','NAME':BASE_DIR/'db.sqlite3'}}
+# DATABASES={'default':{'ENGINE':'django.db.backends.sqlite3','NAME':BASE_DIR/'db.sqlite3'}}
 LANGUAGE_CODE='en-us'
 TIME_ZONE='UTC'
 USE_I18N=True
@@ -43,4 +43,17 @@ CACHES = {
    'BACKEND':'django_redis.cache.RedisCache',
    'LOCATION': os.getenv('REDIS_URL','redis://127.0.0.1:6379/1')
  }
+}
+
+import os
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('MYSQL_DB', 'djnagopipe'),
+        'USER': os.getenv('MYSQL_USER', 'root'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'test@123'),
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
 }
