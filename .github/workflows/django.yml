@@ -24,7 +24,7 @@ jobs:
       with:
         python-version: '3.11'
     - run: pip install -r requirements.txt
-    - run : ls -la
+    - run : printenv
     - run: sudo apt-get update && sudo apt-get install -y mysql-client
     - run: |
           for i in {1..20}; do
