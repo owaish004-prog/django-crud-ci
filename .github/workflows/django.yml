@@ -14,15 +14,6 @@ jobs:
         image: mysql:8
         ports:
           - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: test@123
-          MYSQL_DATABASE: djnagopipe
-          MYSQL_ROOT_HOST: '%'              # ✅ Allow root login from any host
-        options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -ptest@123 --silent"
-          --health-interval=10s
-          --health-timeout=10s
-          --health-retries=10
     env:
       SECRET_KEY: test
       DEBUG: True
@@ -34,6 +25,7 @@ jobs:
         python-version: '3.11'
     - run: pip install -r requirements.txt
     - run: sudo apt-get update && sudo apt-get install -y mysql-client
-    - run: mysql -h 127.0.0.1 -u root -p'test@123' -e "SHOW DATABASES;"
     - run: python manage.py migrate
     - run: python manage.py test
+
+
