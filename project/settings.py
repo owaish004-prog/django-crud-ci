@@ -53,7 +53,7 @@ DATABASES = {
         'NAME': os.getenv('MYSQL_DB', 'djnagopipe'),
         'USER': os.getenv('MYSQL_USER', 'root'),
         'PASSWORD': os.getenv('MYSQL_PASSWORD', 'test@123'),
-        'HOST': '127.0.0.1',
+        'HOST': os.getenv('HOST'),
         'PORT': '3306',
     }
 }
